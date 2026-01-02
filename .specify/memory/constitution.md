@@ -1,55 +1,445 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Advanced Phase Todo Application Constitution
 
-## Core Principles
+<!--
+Sync Impact Report:
+Version: 0.0.0 → 1.0.0 (MAJOR - Initial ratification)
+Modified Principles: N/A (new constitution)
+Added Sections:
+  - Purpose & Authority
+  - Scope of This Constitution
+  - Non-Negotiable Development Rules
+  - Feature Governance (Recurring Tasks, Due Dates, Reminders)
+  - Temporal Logic Standards
+  - State & Lifecycle Rules
+  - AI-Readiness Guarantees
+  - Cloud-Readiness Guarantees
+  - Forbidden Practices
+  - Success Criteria
+  - Governance
+Removed Sections: N/A (new constitution)
+Templates Requiring Updates:
+  ⚠ .specify/templates/plan-template.md - PENDING (verify constitution check alignment)
+  ⚠ .specify/templates/spec-template.md - PENDING (verify scope/requirements alignment)
+  ⚠ .specify/templates/tasks-template.md - PENDING (verify task categorization reflects principles)
+Follow-up TODOs: Validate all template files align with constitutional principles
+-->
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## Purpose & Authority
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+This Constitution is the supreme governing document for the Advanced Phase of the Todo Application under Hackathon II – Spec-Driven Development. It establishes immutable architectural, behavioral, and process requirements that MUST be satisfied by all specifications, implementations, and future evolutions.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**Authority Hierarchy:**
+1. This Constitution (highest)
+2. Feature Specifications (governed by this Constitution)
+3. Implementation Plans (derived from specs, bound by this Constitution)
+4. Generated Code (produced by Claude Code, validated against specs and this Constitution)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+No feature, specification, or implementation may violate the principles herein. Any conflict MUST be resolved by amending this Constitution through the governance process defined below.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+## Scope of This Constitution
 
-### [PRINCIPLE_6_NAME]
+This Constitution governs **Advanced-Level Intelligent Features** for a Todo Application evolving across multiple phases:
 
+**Current Phase (II - Advanced Features):**
+- Recurring Tasks (daily, weekly, monthly, custom recurrence patterns)
+- Due Dates and Due Times
+- Time-based Reminder Logic
+- Deterministic temporal behavior
+- Python CLI in-memory implementation
 
-[PRINCIPLE__DESCRIPTION]
+**Future Phases (III-V - Forward Compatibility Required):**
+- Integrated AI Chatbot (natural language control)
+- Cloud-native deployment (Minikube → DigitalOcean Kubernetes Service)
+- OpenAI Chatkit integration
+- OpenAI Agents SDK integration
+- Official MCP SDK integration
+- Browser/system notifications
+- Multi-user, distributed state
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Out of Scope for This Phase:**
+- Network communication
+- Persistent storage (database/filesystem)
+- User authentication/authorization
+- Web or mobile UI
+- Real-time collaboration
+- External API integrations
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Non-Negotiable Development Rules
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### I. Spec-First Development (ABSOLUTE)
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Every feature MUST begin with a complete Markdown specification before any code generation.
+
+**Requirements:**
+- Specification MUST be written in Markdown and approved by human architect before implementation
+- Specification MUST define all inputs, outputs, state transitions, edge cases, and error conditions
+- NO code generation permitted until specification is finalized and approved
+- Specifications MUST be iteratively refined until Claude Code generates correct behavior
+- Manual code writing is FORBIDDEN; all code MUST be generated by Claude Code from approved specs
+
+**Rationale:** Spec-first development ensures architectural clarity, prevents scope creep, and enables AI-driven code generation to succeed deterministically.
+
+### II. Deterministic Behavior (ABSOLUTE)
+
+Every feature MUST exhibit deterministic, reproducible behavior under identical inputs and state.
+
+**Requirements:**
+- Given identical task state and system time, operations MUST produce identical results
+- NO randomness, NO hidden side effects, NO non-deterministic algorithms
+- Time-based logic MUST be testable via dependency injection or parameterized time sources
+- All state transitions MUST be explicitly specified and traceable
+- Concurrency (future phases) MUST use deterministic conflict resolution
+
+**Rationale:** Determinism is essential for testing, debugging, AI reasoning, and user trust.
+
+### III. Explicit State Transitions (ABSOLUTE)
+
+All state changes MUST be explicit, atomic, and governed by documented transition rules.
+
+**Requirements:**
+- Task lifecycle states MUST be enumerated (e.g., pending, active, completed, snoozed)
+- State transition conditions MUST be specified in specifications
+- NO implicit state changes based on time alone without explicit trigger events
+- State transitions MUST be reversible or justify irreversibility
+- Audit trail of state changes MUST be possible (even if not implemented in Phase II)
+
+**Rationale:** Explicit state management enables reasoning, debugging, and future distributed system requirements.
+
+### IV. Time-Aware Logic Correctness (ABSOLUTE)
+
+Temporal operations MUST be correct, testable, and timezone-agnostic at the core.
+
+**Requirements:**
+- Time MUST be treated as an injectable dependency for testing
+- Time calculations MUST handle edge cases (leap years, DST transitions, month boundaries)
+- Internal time representation MUST be UTC or equivalent unambiguous format
+- User-facing times MAY be localized, but core logic MUST be timezone-neutral
+- Recurring task logic MUST correctly compute next occurrence across all edge cases
+
+**Rationale:** Time bugs are notoriously difficult to debug and test; correctness requires explicit design.
+
+### V. Human-Language Compatibility (FORWARD COMPATIBILITY)
+
+All features MUST be controllable via natural language intents in future phases.
+
+**Requirements:**
+- Every user operation MUST map to a discrete, named intent (e.g., "create_task", "mark_complete", "set_recurrence")
+- Intents MUST be unambiguous and composable
+- Feature specifications MUST include natural language examples for each operation
+- NO operations that cannot be expressed in natural language
+- Intent → implementation mapping MUST be explicit and documented
+
+**Rationale:** Future AI chatbot integration requires all features to be expressible as conversational commands.
+
+### VI. Extensibility Without Refactoring (ABSOLUTE)
+
+Core architectural decisions MUST support future extensions without breaking changes.
+
+**Requirements:**
+- Data models MUST support optional fields for future features
+- Business logic MUST be decoupled from I/O (console vs web vs API)
+- Recurrence rules MUST be data-driven, not hardcoded
+- New task properties (tags, priorities, subtasks) MUST be addable without refactoring
+- Plugin architecture MUST be possible (even if not implemented in Phase II)
+
+**Rationale:** Hackathon phases build incrementally; refactoring core logic breaks continuity.
+
+### VII. No Manual Coding (HACKATHON RULE)
+
+ALL code MUST be generated by Claude Code from approved specifications.
+
+**Requirements:**
+- Human developers MUST NOT write Python, shell scripts, or configuration manually
+- Specifications MUST be sufficiently detailed for Claude Code to generate correct implementations
+- If generated code is incorrect, specification MUST be refined and regenerated
+- Manual bug fixes are FORBIDDEN; bugs MUST be fixed via spec refinement and regeneration
+
+**Rationale:** Hackathon rules mandate AI-driven code generation to validate Spec-Driven Development methodology.
+
+## Feature Governance
+
+### Recurring Tasks
+
+Recurring tasks MUST support flexible, rule-based recurrence patterns without hardcoding.
+
+**Mandatory Capabilities:**
+- Daily recurrence (every N days)
+- Weekly recurrence (specific days of week, every N weeks)
+- Monthly recurrence (specific day of month, last day of month, Nth weekday)
+- Custom recurrence rules (cron-like or RRULE-compatible future extension)
+- Auto-rescheduling: Upon task completion, next occurrence MUST be computed and scheduled automatically
+- Manual skip: User MUST be able to skip next occurrence without completing current
+- Manual reschedule: User MUST be able to override next occurrence date
+
+**Constraints:**
+- Recurrence rules MUST be stored as data (JSON, dict, structured format), NOT code
+- Rule evaluation MUST be deterministic and testable
+- Infinite recurrence MUST be supported (no arbitrary end date required)
+- Finite recurrence (end after N occurrences or by date) MUST be supported
+- Edge cases MUST be specified: February 30th → March 2nd/3rd, DST transitions, etc.
+
+**Prohibited:**
+- Hardcoded recurrence logic (e.g., separate functions for daily vs weekly)
+- Non-deterministic "smart" rescheduling (AI guessing next occurrence)
+- Implicit side effects (tasks changing state without user action)
+
+### Due Dates
+
+Tasks MAY have due dates (date only) or due times (date + time).
+
+**Mandatory Capabilities:**
+- Due date (YYYY-MM-DD format) without time (tasks due anytime that day)
+- Due datetime (ISO 8601 or equivalent, with time)
+- No due date (tasks without deadlines)
+- Overdue detection (current time > due time)
+- Due soon detection (user-configurable threshold, e.g., within 24 hours)
+
+**Constraints:**
+- Due date MUST be optional (not all tasks have deadlines)
+- Due datetime precision MUST be to the minute (no seconds required)
+- Overdue status MUST be computed on-demand, NOT stored as state
+- Due date changes MUST NOT affect recurrence rules (independent properties)
+
+**Prohibited:**
+- Automatic state changes based solely on due date (tasks do NOT auto-complete or fail when overdue)
+- Hidden timezone conversions (store in UTC, display in local if supported)
+
+### Reminders
+
+Reminder logic MUST be deterministic and decouple notification delivery from rule evaluation.
+
+**Mandatory Capabilities:**
+- Reminder time (absolute datetime)
+- Reminder offset (relative to due date/time, e.g., "1 day before", "1 hour before")
+- Multiple reminders per task
+- Reminder delivery log (track which reminders have fired)
+- Snooze reminder (postpone by N minutes/hours)
+
+**Constraints:**
+- Reminder rules MUST be data-driven (not hardcoded)
+- Reminder evaluation MUST be testable via time injection
+- Notification delivery MUST be abstracted (console print in Phase II, browser notification in future)
+- Fired reminders MUST be marked as delivered to prevent duplicate alerts
+- Reminders MUST NOT modify task state (non-invasive alerts only)
+
+**Architecture Requirements:**
+- **Phase II (Console):** Print reminder message to stdout at appropriate time
+- **Future Phases (Web/Mobile):** Swap console printer for browser/system notification API
+- Core reminder engine MUST be platform-agnostic
+
+**Prohibited:**
+- Polling-based reminder checking (future event queue or scheduler integration required)
+- Blocking I/O during reminder evaluation
+- Reminder logic coupled to console output
+
+## Temporal Logic Standards
+
+All temporal calculations MUST adhere to these standards.
+
+### Time Representation
+
+- **Internal Storage:** UTC timestamps (ISO 8601 or Unix epoch)
+- **User Input/Output:** Local time MAY be supported, but MUST convert to/from UTC
+- **Recurrence Calculations:** MUST account for DST transitions, leap years, variable month lengths
+
+### Time Injection for Testing
+
+- System time MUST be injectable (dependency injection or parameter passing)
+- Tests MUST be able to simulate arbitrary current times without waiting
+- Time-based features MUST accept `current_time` parameter for deterministic testing
+
+### Edge Case Requirements
+
+Specifications MUST explicitly address:
+- February 29th in non-leap years (recurrence behavior)
+- Monthly recurrence on 31st in months with fewer days
+- DST transitions (2 AM happens twice or skips in spring/fall)
+- End-of-month recurrence (last day of month varies)
+- Timezone changes (user traveling across timezones in future phases)
+
+## State & Lifecycle Rules
+
+### Task States
+
+Tasks MUST transition through well-defined states.
+
+**Permitted States:**
+- `pending`: Created, not yet started
+- `active`: Currently being worked on
+- `completed`: Finished successfully
+- `snoozed`: Temporarily hidden until a future time
+- `cancelled`: Explicitly abandoned (optional)
+
+**State Transition Rules:**
+- `pending → active`: User starts task
+- `active → completed`: User marks task done
+- `active → snoozed`: User defers task with snooze time
+- `snoozed → pending`: Snooze time expires (auto-transition)
+- `* → cancelled`: User cancels task (from any state except completed)
+
+**Recurrence Impact:**
+- Completing a recurring task MUST create a new `pending` task with next occurrence date
+- Original task instance MUST transition to `completed` (history preserved)
+- Cancelling a recurring task MUST offer option to cancel series or single instance
+
+### Lifecycle Invariants
+
+- Tasks MUST NOT transition to invalid states (e.g., `completed → pending` without explicit "undo" operation)
+- State transitions MUST be logged (even if in-memory for Phase II)
+- Concurrent state changes MUST be prevented (future phases: optimistic locking or CRDT)
+
+## AI-Readiness Guarantees
+
+All features MUST be designed for future natural language control.
+
+### Intent Mapping
+
+Every user operation MUST map to a named intent with typed parameters.
+
+**Examples:**
+- `create_task(title: str, due_date: Optional[datetime], recurrence: Optional[RecurrenceRule])`
+- `mark_complete(task_id: str)`
+- `set_reminder(task_id: str, remind_at: datetime)`
+- `snooze_task(task_id: str, snooze_until: datetime)`
+
+### Conversational Compatibility
+
+Specifications MUST include natural language examples for each operation.
+
+**Examples:**
+- "Add a recurring task to water plants every 3 days"
+- "Remind me 1 hour before my dentist appointment"
+- "Show me all overdue tasks"
+- "Snooze this task until tomorrow at 9 AM"
+
+### Deterministic Execution
+
+AI-generated commands MUST produce deterministic results given identical context.
+
+**Requirements:**
+- NO AI "creativity" in core logic (AI maps language → intent, engine executes deterministically)
+- Ambiguous commands MUST prompt for clarification (e.g., "tomorrow" → confirm date/time)
+- Command history MUST be reproducible (future audit trail requirement)
+
+## Cloud-Readiness Guarantees
+
+Design MUST NOT preclude future cloud-native deployment.
+
+### Statelessness Readiness
+
+- Business logic MUST be separable from in-memory state (Phase II uses dicts/lists, future uses database)
+- NO global mutable state (all state MUST be passed as parameters or managed by state container)
+- Concurrent access patterns MUST be considered (even if single-threaded in Phase II)
+
+### API-First Thinking
+
+- Core operations MUST be implementable as RESTful or GraphQL APIs (even if CLI-only in Phase II)
+- Input/output MUST be serializable (JSON, Protobuf, etc.)
+- NO CLI-specific logic in business rules (UI layer separation)
+
+### Scalability Considerations
+
+- Recurrence rule evaluation MUST NOT require scanning all tasks (indexable/queryable design)
+- Reminder checking MUST be event-driven or queue-based (not polling all tasks)
+- Task queries MUST support filtering (due date range, state, recurrence status)
+
+## Forbidden Practices
+
+The following practices are EXPLICITLY PROHIBITED:
+
+### Code-Level Prohibitions
+
+- **Manual Code Writing:** Humans MUST NOT write Python code; only Claude Code may generate code
+- **Hardcoded Business Rules:** Recurrence, reminders, state transitions MUST be data-driven
+- **Global Mutable State:** NO global variables holding task state (use state containers)
+- **Blocking I/O in Business Logic:** I/O MUST be abstracted (future async requirement)
+
+### Design-Level Prohibitions
+
+- **Speculative Features:** NO features not explicitly specified in approved specs
+- **Hidden Side Effects:** All state changes MUST be explicit and documented
+- **Non-Deterministic Behavior:** NO randomness, NO time-based side effects without explicit spec
+- **UI Coupling:** Business logic MUST NOT depend on console, web, or any specific UI
+- **Platform Coupling:** Core logic MUST NOT depend on OS-specific features (Windows/Linux/macOS)
+
+### Process-Level Prohibitions
+
+- **Code Before Spec:** NO code generation permitted before spec approval
+- **Unapproved Changes:** NO implementation deviations from approved spec without re-approval
+- **Manual Bug Fixes:** Bugs MUST be fixed via spec refinement and code regeneration, NOT manual patches
+
+## Success Criteria
+
+A feature implementation SUCCEEDS if and only if ALL of the following are true:
+
+### Specification Quality
+
+- [ ] Markdown specification exists and is human-approved
+- [ ] All inputs, outputs, edge cases, and error conditions documented
+- [ ] Natural language examples provided for AI integration
+- [ ] State transitions explicitly enumerated
+- [ ] Temporal edge cases addressed (DST, leap years, month boundaries)
+
+### Implementation Correctness
+
+- [ ] All code generated by Claude Code (zero manual code)
+- [ ] Generated code passes all specified tests
+- [ ] Deterministic behavior verified (identical inputs → identical outputs)
+- [ ] Time injection working (tests simulate arbitrary times)
+- [ ] NO hardcoded business rules (recurrence, reminders data-driven)
+
+### Constitutional Compliance
+
+- [ ] NO violations of Non-Negotiable Development Rules (I-VII)
+- [ ] Feature Governance requirements met (recurring tasks, due dates, reminders)
+- [ ] Temporal Logic Standards satisfied (UTC storage, edge cases handled)
+- [ ] State & Lifecycle Rules followed (valid transitions only)
+- [ ] AI-Readiness Guarantees met (intent mapping, conversational examples)
+- [ ] Cloud-Readiness Guarantees met (statelessness, API-first design)
+- [ ] NO Forbidden Practices detected
+
+### Forward Compatibility
+
+- [ ] Feature extensible without refactoring core logic
+- [ ] Future AI control possible via natural language intents
+- [ ] Future cloud deployment possible without architectural changes
+- [ ] Future notification systems swappable (console → browser → mobile)
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Amendment Process
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+This Constitution MAY be amended when:
+1. A constitutional conflict is discovered (spec cannot satisfy Constitution)
+2. A new phase requirement necessitates constitutional change
+3. A principle is proven unworkable or incorrect
+
+**Amendment Procedure:**
+1. Propose amendment with justification (Architecture Decision Record)
+2. Human architect MUST approve
+3. Update Constitution version (MAJOR for breaking changes, MINOR for additions, PATCH for clarifications)
+4. Propagate changes to all dependent templates (spec, plan, tasks)
+5. Create migration plan for existing specifications
+
+### Compliance Review
+
+Every specification and implementation MUST be reviewed for constitutional compliance.
+
+**Review Checkpoints:**
+- Spec approval (before code generation)
+- Code generation (Claude Code validates against spec and Constitution)
+- Testing (tests verify constitutional guarantees)
+- Phase completion (audit all features for compliance)
+
+**Non-Compliance Resolution:**
+- MINOR violations (style, documentation): Fix in next iteration
+- MAJOR violations (determinism, spec-first, forbidden practices): BLOCK release until fixed
+
+### Versioning Policy
+
+Constitution versions follow Semantic Versioning:
+- **MAJOR (X.0.0):** Backward-incompatible changes (principle removal, redefinition)
+- **MINOR (x.Y.0):** Backward-compatible additions (new principles, expanded guidance)
+- **PATCH (x.y.Z):** Clarifications, wording fixes, non-semantic improvements
+
+**Version**: 1.0.0 | **Ratified**: 2026-01-01 | **Last Amended**: 2026-01-01

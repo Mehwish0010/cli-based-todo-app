@@ -287,4 +287,4 @@ Built with [Claude Code](https://claude.com/claude-code) following Spec-Driven D
 
 ---
 
-**Made with ❤️ using Spec-Driven Development**
+**Made with ❤️ by Mehwish Fatima using Spec-Driven Development**
